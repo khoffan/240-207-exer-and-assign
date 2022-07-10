@@ -13,18 +13,21 @@ void display_com(int n){
     t = (n/10)%10;
     h = (n/100)%10;
     tt = (n/1000)%10;
-    if(u>0){
-    	u *=1;
-	}
-	if(t>0){
-		t *= 10;
-	}
-	if(h>0){
-		h *= 100;
-	}
-	if(tt>0){
-		tt*= 100;
-	}
-    printf("= %d+%d+%d+%d",tt,h,t,u);
+    if(u>0&&t>0&&h>0&&tt>0){
+        printf("= %d+%d+%d+%d",tt*1000,h*100,t*10,u);
+    }
+    if(t>0&&h>0&&tt>0){
+        printf("= %d+%d+%d",tt*1000,h*1000,t*10);
+    }
+    if(u>0&&h>0&&tt>0){
+        printf("= %d+%d+%d",tt*1000,h*100,u);
+    }
+    if(u>0&&t>0&&tt>0){
+        printf("= %d+%d+%d",tt*1000,t*10,u);
+    }
+    if(u>0&&t>0&&h>0){
+        printf("= %d+%d+%d",h*100,t*10,u);
+    }
+    
     
 }
