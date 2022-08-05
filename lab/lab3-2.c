@@ -3,36 +3,30 @@
 int *find_max(int *p, int *q);
 int main()
 {
-    int d[LEN], i,*max;
+    int d[LEN], i,*max,*a;
     for (i = 0; i < LEN; i++)
     {
         printf("N%02d: ", i + 1);
         scanf("%d", &d[i]);
     }
+    printf("=");
     for (i = 0; i < LEN; i++)
-    {
-        max=find_max(&d[i],&d[LEN]);
-        printf("%d",*max);
+    {   
+        max=find_max(d,&d[LEN]);
+        printf(" %d",*max);
+        *max = 0;
     }
-    
-    // for(i=0;i<LEN;i++){
-    //     printf("=%d\n",d[i]);
-    // }
-    // // printf("=%d\n",*find_max(&d[0],&d[LEN]));
     return 0;
 }
 
 int *find_max(int *p,int *q){
-    int i;
-    for(i=0;i<LEN;i++){
-        if(*(p+i) < *q){
-            *(p+i) = *q;
-        }
-        else{
-            *(p+i);
-        }
-        return p;
+    int *i,*max = p;
+    for(i=p;i<q;i++){
+        if(*i > *max){
+            max = i;
+        }  
     }  
+    return max;
     // if(p>q){
     //     return NULL;
     // }
