@@ -1,24 +1,52 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include<stdio.h>
+#include<stdlib.h>
 
-struct treenode{ 
-	struct treenode *leftptr;
-	int data;
-	struct treenode *rightptr;
-	};
+struct treenode
+{   
+    struct treenode *leftptr;
+    int data;
+    struct treenode *rightptr;
+};
 typedef struct treenode TREENODE;
 typedef TREENODE *TREE;
 
+TREE mkempty();
+TREE mk_tree(int x,TREE right,TREE left);
+void insert_node(TREE *tp,int value);
+int root_value(TREE t);
+void print_inorder(TREE t);
+void print_leaves(TREE t);
+void free_tree(TREE *t);
+int main(){
+    TREE t = NULL;
+    insert_node(&t,6);
+    insert_node(&t,4);
+    insert_node(&t,8);
+    insert_node(&t,3);
+    insert_node(&t,5);
+    insert_node(&t,1);
+    insert_node(&t,7);
+    insert_node(&t,9);
+    
 
-TREE mkEmpty(void) { return NULL;}
-int isEmptyTree(TREE t) { return t == NULL; }
-TREE mkTree(int x,TREE leftT, TREE rightT) {
-	TREE t;
-	t = malloc(sizeof(TREENODE));
-	t->data = x;
-	t->leftptr = leftT;
-	t->rightptr = rightT;
-	return t;
+    printf("Enter Root: %d\n"); root_value(t);
+    print_inorder(t);
+    printf("\n");
+    print_leaves(t);
+
+    free_tree(&t);
+    return 0;
+}
+
+TREE mkempty(){
+    return NULL;
+}
+TREE mk_tree(int x,TREE left,TREE right){
+    TREE t = (TREE)malloc(sizeof(TREENODE));
+    t->data = x;
+    t->leftptr = left;
+    t->rightptr = right;
+    return t;
 }
 void insert_node(TREE *tp, int value) {
 	/* tp is a pointer to a BST */
@@ -34,118 +62,46 @@ void insert_node(TREE *tp, int value) {
 	else
 		printf("duplicate node\n");
 }
-int tree_height(TREE t);
-void print_in_order(TREE t);
-void print_pre_order(TREE t);
-void print_post_order(TREE t);
-int total_nodes(TREE t);
-int leaf_nodes(TREE t);
-
-void free_tree(TREE *t);
-
-int root_nodes(TREE t){
+int root_value(TREE t){
     if(t == NULL){
-        return -1;
+        return 0;
     }
     else{
-        return (t+1)->data;
+        return t->data;
     }
 }
-int main()
-{
-	TREE t = NULL;
-	insert_node(&t, 4);
-	insert_node(&t, 2);
-	insert_node(&t, 5);
-	insert_node(&t, 7);
-	insert_node(&t, 1);
-
-	printf("Height = %d\n", tree_height(t));
-
-	printf("In-order ="); print_in_order(t); printf("\n");
-	printf("Pre-order ="); print_pre_order(t); printf("\n");
-	printf("Post-order ="); print_post_order(t); printf("\n");
-
-	printf("Total-nodes = %d\n", total_nodes(t));
-	printf("Leaf-nodes = %d\n", leaf_nodes(t));
-    printf("Enter root: %d\n"); root_nodes(t);
-	//free
-	free_tree(&t);
-
-	return 0;
-}
-
-void free_tree(TREE *t)
-{
-	if((*t) != NULL)
-	{
-		if((*t)->leftptr == NULL && (*t)->rightptr == NULL && (*t) != NULL)
-		{
-			free(*t);
-			*t = NULL;
-		}
-		else
-		{
-			free_tree(&((*t)->leftptr));
-			free_tree(&((*t)->rightptr));
-			free_tree(t);
-		}
-	}
-}
-
-int tree_height(TREE t)
-{
-
-	if(t == NULL) return 0;
-
-	int left_height = tree_height(t->leftptr);
-	int right_height = tree_height(t->rightptr);
-
-	if(left_height > right_height)
-		return 1+left_height;
-
-	return 1+right_height;
-}
-
-void print_in_order(TREE t)
-{
-	if(t != NULL)
-	{
-		print_in_order(t->leftptr);
+void print_inorder(TREE t){
+    if(t != NULL){
+        print_inorder(t->leftptr);
 		printf(" %d", t->data);
-		print_in_order(t->rightptr);
-	}
+		print_inorder(t->rightptr);
+    }
+}
+void print_leaves(TREE t){
+    if(t == NULL){
+        return;
+    }
+    if(t->leftptr == NULL && t->rightptr == NULL){
+        printf(" %d",t->data);
+    }
+    if(t->leftptr){
+        print_leaves(t->leftptr);
+    }
+    if(t->rightptr){
+        print_leaves(t->rightptr);
+    }
 }
 
-void print_pre_order(TREE t)
-{
-	if(t != NULL)
-	{
-		printf(" %d", t->data);
-		print_pre_order(t->leftptr);
-		print_pre_order(t->rightptr);
-	}
-}
-
-void print_post_order(TREE t)
-{
-	if(t != NULL)
-	{
-		print_post_order(t->leftptr);
-		print_post_order(t->rightptr);
-		printf(" %d", t->data);
-	}
-}
-
-int total_nodes(TREE t)
-{
-	if(t == NULL) return 0;
-	return 1 + total_nodes(t->leftptr) + total_nodes(t->rightptr);
-}
-
-int leaf_nodes(TREE t)
-{
-	if(t == NULL) return 0;
-	if(t != NULL && t->leftptr == NULL && t->rightptr == NULL) return 1;
-	return leaf_nodes(t->leftptr) + leaf_nodes(t->rightptr);
+void free_tree(TREE *t){
+    if((*t) != NULL){
+        if((*t)->leftptr == NULL && (*t)->rightptr == NULL && (*t) != NULL){
+            free(*t);
+            *t = NULL;
+        }
+        else{
+            free_tree(&(*t)->leftptr);
+            free_tree(&(*t)->rightptr);
+            free_tree(t);
+        }
+    }
 }
