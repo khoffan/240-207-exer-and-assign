@@ -11,6 +11,10 @@ LN *strnig2list(char *s);
 void str_end(LN **hptr,char key);
 void show_str(LN *hptr);
 
+// รับค่า string มา1ขัอความ เพื่อตัดข้อึวาม 
+// เช่น ถ้าเราใส่ hello เข้ามา และตัดตั้ง 'l' ข้อความที่จะแสดงจะเป็น he 
+// ตอนนี้ได้แค่บางส่วนแต่เกือบได้แล้ว
+
 int main(){
     LN *sp, *show;
     char str[128];
