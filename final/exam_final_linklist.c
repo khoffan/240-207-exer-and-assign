@@ -28,7 +28,7 @@ int main(){
         show = show->next;
     }
     printf("\n");
-    str_end(&sp,'o');
+    str_end(&sp,'l');
     return 0;
 }
 LN *strnig2list(char *s){
@@ -64,10 +64,10 @@ void str_end(LN **hptr,char key){
         if(current == '\0'){
             printf("NO data");
         }
-        else if(current != '\0' && current->c != key){
-            current = current->next;
-        }
         else if(current->c == key){
+            if(current == *hptr){
+                *hptr = current->next;
+            }
             previous = current;
             while(previous->next != current){
                 previous = previous->next;
@@ -75,7 +75,10 @@ void str_end(LN **hptr,char key){
             previous->next = current->next;
             tmp = current->next;
             free(tmp);
+            tmp = NULL;
         }
         printf("%c",current->c);
+        current = current->next;
+
     }
 }
