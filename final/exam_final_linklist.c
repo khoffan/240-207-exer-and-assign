@@ -16,17 +16,17 @@ void show_str(LN *hptr);
 // ตอนนี้ได้แค่บางส่วนแต่เกือบได้แล้ว
 
 int main(){
-    LN *sp, *show;
+    LN *sp// *show,*tmp;
     char str[128];
     printf("Enter: ");
     gets(str);
     sp = strnig2list(str);
     
-    show = sp;
-    while(show != '\0'){
-        printf("%c",show->c);
-        show = show->next;
-    }
+    // show = sp;
+    // while(show != '\0'){
+    //     printf("%c",show->c);
+    //     show = show->next;
+    // }
     printf("\n");
     str_end(&sp,'l');
     return 0;
@@ -56,10 +56,6 @@ void str_end(LN **hptr,char key){
     LN *current = *hptr;
     LN *previous = NULL;
     LN *tmp;
-    // while(current != NULL){
-    //     printf("%c",current->c);
-    //     current = current->next;
-    // }
     while(current != '\0'){
         if(current == '\0'){
             printf("NO data");
@@ -73,12 +69,12 @@ void str_end(LN **hptr,char key){
                 previous = previous->next;
             }
             previous->next = current->next;
-            tmp = current->next;
+            //free
+            tmp = current;
+            current = current->next;
             free(tmp);
-            tmp = NULL;
         }
         printf("%c",current->c);
         current = current->next;
-
     }
 }
