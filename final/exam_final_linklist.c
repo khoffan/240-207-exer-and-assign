@@ -22,6 +22,8 @@ int main(){
     gets(str);
     sp = strnig2list(str);
     
+    // show ข้อความในlinkedlist
+    
     // show = sp;
     // while(show != '\0'){
     //     printf("%c",show->c);
