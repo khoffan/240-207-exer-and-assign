@@ -16,7 +16,7 @@ void show_str(LN *hptr);
 // ตอนนี้ได้แค่บางส่วนแต่เกือบได้แล้ว
 
 int main(){
-    LN *sp// *show,*tmp;
+    LN *sp;// *show,*tmp;
     char str[128];
     printf("Enter: ");
     gets(str);
@@ -24,13 +24,12 @@ int main(){
     
     // show ข้อความในlinkedlist
     
-    // show = sp;
-    // while(show != '\0'){
-    //     printf("%c",show->c);
-    //     show = show->next;
+    // while(sp != '\0'){
+    //     printf("%c",sp->c);
+    //     sp = sp->next;
     // }
-    printf("\n");
-    str_end(&sp,'l');
+    // printf("\n");
+    printf("str_end: ");str_end(&sp,'o');
     return 0;
 }
 LN *strnig2list(char *s){
@@ -45,11 +44,9 @@ LN *strnig2list(char *s){
             tail = head;
         }
         else{
-            current = (LN*)malloc(sizeof(LN));
-            current->next = head;
-            current->c = *s;
-            tail->next = current;       
-            current = current->next;
+            tail->next = (LN*)malloc(sizeof(LN));
+            tail = tail->next;
+            tail->c = *s;
         }
         tail->next = NULL;
         s++;
@@ -66,7 +63,7 @@ void str_end(LN **hptr,char key){
         }
         else if(current->c == key){
             if(current == *hptr){
-                *hptr = current->next;
+                return;
             }
             previous = current;
             while(previous->next != current){
