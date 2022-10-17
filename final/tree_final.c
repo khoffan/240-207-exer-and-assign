@@ -18,6 +18,7 @@ void print_inorder(TREE t);
 void print_preorder(TREE t);
 void print_leaves(TREE t);
 void free_tree(TREE *t);
+int sumAllLeaftLeaves(TREE t);
 int main(){
     TREE t = NULL;
     insert_node(&t,6);
@@ -36,6 +37,7 @@ int main(){
     print_preorder(t);
     printf("\n");
     print_leaves(t);
+    printf("\n %d",sumAllLeaftLeaves(t));
 
     free_tree(&t);
     return 0;
@@ -114,4 +116,15 @@ void free_tree(TREE *t){
             free_tree(t);
         }
     }
+}
+int sumAllLeaftLeaves(TREE t){
+     if (t == NULL)
+        return 0;
+    // check whether this t is a leaf t and is left.
+    if (t->leftptr == NULL && t->rightptr == NULL)
+        return t->data;
+ 
+    // recursive case
+    return sumAllLeaftLeaves(t->leftptr)
+           + sumAllLeaftLeaves(t->rightptr);
 }
