@@ -22,16 +22,16 @@ int sumAllLeaftLeaves(TREE t);
 int main(){
     TREE t = NULL;
     insert_node(&t,6);
-    insert_node(&t,3);
-    insert_node(&t,1);
     insert_node(&t,4);
+    insert_node(&t,3);
     insert_node(&t,5);
+    insert_node(&t,1);
     insert_node(&t,8);
     insert_node(&t,7);
     insert_node(&t,9);
     
 
-    printf("Enter Root: %d\n"); root_value(t);
+    printf("Enter Root: %d\n",root_value(t));
     print_inorder(t);
     printf("\n");
     print_preorder(t);
@@ -71,8 +71,7 @@ int root_value(TREE t){
 
     if(t != NULL){
         return t->data;
-        root_value(t->leftptr);
-        root_value(t->rightptr);
+        // printf(" %d",t->data);
     }
 }
 void print_inorder(TREE t){
