@@ -44,11 +44,12 @@ LN *strnig2list(char *s){
             tail = head;
         }
         else{
-            tail->next = (LN*)malloc(sizeof(LN));
+            current = (LN*)malloc(sizeof(LN));
+            current->c = *s;
+            current->next = NULL;
+            tail->next = current;
             tail = tail->next;
-            tail->c = *s;
         }
-        tail->next = NULL;
         s++;
     }
     return head;
