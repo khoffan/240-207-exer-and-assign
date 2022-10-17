@@ -29,7 +29,7 @@ int main(){
     //     sp = sp->next;
     // }
     // printf("\n");
-    printf("str_end: ");str_end(&sp,'o');
+    printf("str_end: ");str_end(&sp,'l');
     return 0;
 }
 LN *strnig2list(char *s){
