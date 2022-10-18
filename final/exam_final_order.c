@@ -11,18 +11,18 @@ void insert_in_orders(LN *head,int data);
 void free_node(LN **hptr);
 int main(){
     LN *head,*tmp,*tail,*count;
-    int num = 0,i=0;
+    int num=0,i=0;
     head = (LN*)malloc(sizeof(LN));
-    head->data = num;
+    head->data = 0;
     head->next = NULL;
     tail = head;
-    while(num >= 0){
-        insert_in_orders(tail,num);
+    while(i != 3){
         printf("Enter data: ");scanf("%d",&num);
+        insert_in_orders(tail,num);
         if(num == 0){
             break;
         }
-        // i++;
+        i++;
     }
     while(tail != NULL){
         printf(" %d",tail->data);
@@ -42,25 +42,41 @@ int main(){
     return 0;
 }
 void insert_in_orders(LN *head,int data){
-    while(head->next != NULL){
-        if(head->data <= data && head->next->data > data){
-            LN *new_node;
-            new_node = (LN*)malloc(sizeof(LN));
-            new_node->data = data;
-            new_node->next = NULL;
-            head->next = new_node;
-            new_node = new_node->next;
-        }
-        head = head->next;
+    LN *cur = head;
+    LN *tmp;
+    tmp = (LN*)malloc(sizeof(LN));
+    tmp->data = data;
+    while(cur->next != NULL && cur->next->data < data && cur != NULL){
+        cur = cur->next;
     }
-    head->next = NULL;
-    if(data > head->data){
-        LN *new_node;
-        new_node = (LN*)malloc(sizeof(LN));
-        new_node->data = data;
-        new_node->next = NULL;
-        head->next = new_node;
+    if(cur != NULL){
+        tmp->next = cur->next;
+        cur->next = tmp;
     }
+    else{
+        tmp->next = head;
+        head = tmp;
+    }
+    // while(head->next != NULL){
+    //     if(head->data <= data && head->next->data > data){
+    //         LN *new_node;
+    //         new_node = (LN*)malloc(sizeof(LN));
+    //         new_node->data = data;
+    //         new_node->next = NULL;
+    //         head->next = new_node;
+    //         new_node = new_node->next;
+    //     }
+    //     head = head->next;
+    // }
+    // head->next = NULL;
+    // if(data > head->data){
+    //     LN *new_node;
+    //     new_node = (LN*)malloc(sizeof(LN));
+    //     new_node->data = data;
+    //     new_node->next = NULL;
+    //     head->next = new_node;
+    //     head = head->next;
+    // }
 }
 void free_node(LN **hptr){
     LN *curr = *hptr;
