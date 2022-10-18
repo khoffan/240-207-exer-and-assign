@@ -8,8 +8,9 @@ struct listnode{
 typedef struct listnode LN;
 
 void insert_in_orders(LN *head,int data);
+void free_node(LN **hptr);
 int main(){
-    LN *head = NULL,*tmp,*tail,*count;
+    LN *head,*tmp,*tail,*count;
     int num = 1;
     head = (LN*)malloc(sizeof(LN));
     head->data = num;
@@ -30,11 +31,10 @@ int main(){
     //     tail->next = tmp;
     //     tail = tmp;
     // }
-    while(tail != NULL){
-        tmp = tail;
-        tail = tail->next;
-        free(tmp);
-    }
+    free_node(&head);
+    // if(tail == NULL && head == NULL){
+    //     printf("no data!!!");
+    // }
     return 0;
 }
 void insert_in_orders(LN *head,int data){
@@ -56,6 +56,14 @@ void insert_in_orders(LN *head,int data){
         new_node->data = data;
         new_node->next = NULL;
         head->next = new_node;
+    }
+}
+void free_node(LN **hptr){
+    LN *curr = *hptr;
+    while(curr != NULL){
+        *hptr = (*hptr)->next;
+        free(curr);
+        curr = *hptr;
     }
 }
 
