@@ -16,7 +16,7 @@ void show_str(LN *hptr);
 // ตอนนี้ได้แค่บางส่วนแต่เกือบได้แล้ว
 
 int main(){
-    LN *sp;// *show,*tmp;
+    LN *sp,*tmp;
     char str[128];
     printf("Enter: ");
     gets(str);
@@ -30,6 +30,11 @@ int main(){
     // }
     // printf("\n");
     printf("str_end: ");str_end(&sp,'l');
+    while(sp != NULL){
+        tmp = sp;
+        sp = sp->next;
+        free(tmp);
+    }
     return 0;
 }
 LN *strnig2list(char *s){
