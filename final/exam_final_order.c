@@ -11,7 +11,7 @@ void insert_in_orders(LN *head,int data);
 void free_node(LN **hptr);
 int main(){
     LN *head,*tmp,*tail,*count;
-    int num = 1;
+    int num = 0,i=0;
     head = (LN*)malloc(sizeof(LN));
     head->data = num;
     head->next = NULL;
@@ -19,9 +19,13 @@ int main(){
     while(num >= 0){
         insert_in_orders(tail,num);
         printf("Enter data: ");scanf("%d",&num);
+        if(num == 0){
+            break;
+        }
+        // i++;
     }
     while(tail != NULL){
-        printf("%d",tail->data);
+        printf(" %d",tail->data);
         tail = tail->next;
     }
     // for(int i=0;i<4;i++){
